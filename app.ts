@@ -2,16 +2,25 @@
 //   name: string
 //   age: number
 // } = {
-  const person: {
-    name: string
-    age: number
-    hobbies: string[]
-    role: [number, string] // Tuple
-  } = {
+//   const person: {
+//     name: string
+//     age: number
+//     hobbies: string[]
+//     role: [number, string] // Tuple
+//   } = {
+//   name: 'Kirk',
+//   age: 30,
+//   hobbies: ['Exploring', 'Women'],
+//   role: [2, 'captain']
+// }
+
+enum Role { CAPTAIN, READ_ONLY, DOCTOR }
+
+const person = {
   name: 'Kirk',
   age: 30,
   hobbies: ['Exploring', 'Women'],
-  role: [2, 'captain']
+  role: Role.CAPTAIN
 }
 
 // person.role.push('doctor')
