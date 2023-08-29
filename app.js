@@ -1,7 +1,12 @@
-var add = function (n1, n2) {
-    return n1 + n2;
+var userInput;
+var userName;
+userInput = 5;
+userInput = 'Kirk';
+if (typeof userInput === 'string') {
+    userName = userInput;
+}
+// userName = userInput // Type 'unknown' is not assignable to type 'string'
+var generateError = function (message, code) {
+    throw { message: message, errorCode: code };
 };
-var printResult = function (num) {
-    console.log('Result: ' + num);
-};
-printResult(add(5, 12));
+generateError('An error occurred!', 500);
