@@ -36,6 +36,14 @@ const add: AddFunction = (a: Combinable, b: Combinable): any => {
 const result = add('Kirk', ' Spock')
 result.split(' ')
 
+const fetchedUserData = {
+  id: 'u1',
+  name: 'Kirk',
+  job: { title: 'Captain', description: 'USS Enterprise' }
+}
+
+console.log(fetchedUserData?.job?.title)
+
 // type unknownEmployee = Employee | Admin
 
 // const printEmployeeInformation = (emp: unknownEmployee) => {
