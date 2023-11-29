@@ -24,3 +24,27 @@ const countAndDescribe = (element) => {
 const extractAndConvert = (obj, key) => {
     return 'Value: ' + obj[key];
 };
+class DataStorage {
+    constructor() {
+        this.data = [];
+    }
+    addItem(item) {
+        this.data.push(item);
+    }
+    removeItem(item) {
+        if (this.data.indexOf(item) === -1) {
+            return;
+        }
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+    getItems() {
+        return [...this.data];
+    }
+}
+const textStorage = new DataStorage();
+textStorage.addItem('Kirk');
+textStorage.addItem('Spock');
+textStorage.removeItem('Kirk');
+console.log(textStorage.getItems());
+const numberStorage = new DataStorage();
+// const objStorage = new DataStorage<object>()
