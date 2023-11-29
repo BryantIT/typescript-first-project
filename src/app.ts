@@ -23,3 +23,7 @@ const countAndDescribe = <T extends { length: number }>(element: T): [T, string]
   }
   return [element, descriptionText]
 }
+
+const extractAndConvert = <T extends object, U extends keyof T>(obj: T, key: U) => {
+  return 'Value: ' + obj[key]
+}

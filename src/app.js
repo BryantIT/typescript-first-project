@@ -21,3 +21,6 @@ const countAndDescribe = (element) => {
     }
     return [element, descriptionText];
 };
+const extractAndConvert = (obj, key) => {
+    return 'Value: ' + obj[key];
+};
