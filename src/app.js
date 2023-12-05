@@ -47,4 +47,11 @@ textStorage.addItem('Spock');
 textStorage.removeItem('Kirk');
 console.log(textStorage.getItems());
 const numberStorage = new DataStorage();
-// const objStorage = new DataStorage<object>()
+const createCourseGoal = (title, description, date) => {
+    let courseGoal = {};
+    courseGoal.title = title;
+    courseGoal.description = description;
+    courseGoal.completeUntil = date;
+    return courseGoal;
+};
+const names = ['Kirk', 'Spock'];
