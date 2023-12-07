@@ -51,6 +51,10 @@ const Log2 = (target, name, descriptor) => {
     console.log(target);
     console.log(name);
     console.log(descriptor);
+    return {
+        enumerable: true,
+        configurable: true
+    };
 };
 const Log3 = (target, name, descriptor) => {
     console.log('Method decorator!');

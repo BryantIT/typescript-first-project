@@ -46,6 +46,10 @@ const Log2 = (target: any, name: string, descriptor: PropertyDescriptor) => {
   console.log(target)
   console.log(name)
   console.log(descriptor)
+  return {
+    enumerable: true,
+    configurable: true
+  }
 }
 
 const Log3 = (
