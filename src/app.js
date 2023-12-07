@@ -15,13 +15,19 @@ const Logger = (logString) => {
     };
 };
 const WithTemplate = (template, hookId) => {
-    return (constructor) => {
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor();
-        if (hookEl) {
-            hookEl.innerHTML = template;
-            hookEl.querySelector('h1').textContent = p.name;
-        }
+    return (orConstructor) => {
+        return class extends orConstructor {
+            constructor(..._) {
+                super();
+                console.log('Rendering template');
+                const hookEl = document.getElementById(hookId);
+                const p = new orConstructor();
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    hookEl.querySelector('h1').textContent = p.name;
+                }
+            }
+        };
     };
 };
 let Person = class Person {

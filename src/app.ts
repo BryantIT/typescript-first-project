@@ -6,15 +6,20 @@ const Logger = (logString: string) => {
 }
 
 const WithTemplate = (template: string, hookId: string) => {
-  return (constructor: any) => {
-    const hookEl = document.getElementById(hookId)
-    const p = new constructor()
-    if (hookEl) {
-      hookEl.innerHTML = template
-      hookEl.querySelector('h1')!.textContent = p.name
+  return <T extends {new(...args: any[]): {name: string}}>(orConstructor: T) => {
+    return class extends orConstructor {
+      constructor(..._: any[]) {
+        super()
+        console.log('Rendering template')
+        const hookEl = document.getElementById(hookId)
+        const p = new orConstructor()
+        if (hookEl) {
+          hookEl.innerHTML = template
+          hookEl.querySelector('h1')!.textContent = p.name
+        }
+      }
     }
   }
-
 }
 
 @Logger('LOGGING - PERSON')
@@ -41,10 +46,13 @@ const Log2 = (target: any, name: string, descriptor: PropertyDescriptor) => {
   console.log(target)
   console.log(name)
   console.log(descriptor)
-
 }
 
-const Log3 = (target: any, name: string | Symbol, descriptor: PropertyDescriptor) => {
+const Log3 = (
+  target: any,
+  name: string | Symbol,
+  descriptor: PropertyDescriptor
+) => {
   console.log('Method decorator!')
   console.log(target)
   console.log(name)
