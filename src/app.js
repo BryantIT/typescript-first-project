@@ -33,3 +33,36 @@ Person = __decorate([
 ], Person);
 const person = new Person();
 console.log(person.name);
+const Log = (target, propertyName) => {
+    console.log('Property decorator!');
+    console.log(target, propertyName);
+};
+const Log2 = (target, name, descriptor) => {
+    console.log('Accessor decorator!');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+};
+class Product {
+    set price(val) {
+        if (val > 0) {
+            this._price = val;
+        }
+        else {
+            throw new Error('Invalid price - should be positive!');
+        }
+    }
+    constructor(t, p) {
+        this.title = t;
+        this._price = p;
+    }
+    getPriceWithTax(tax) {
+        return this._price * (1 + tax);
+    }
+}
+__decorate([
+    Log
+], Product.prototype, "title", void 0);
+__decorate([
+    Log2
+], Product.prototype, "price", null);
