@@ -44,6 +44,20 @@ const Log2 = (target: any, name: string, descriptor: PropertyDescriptor) => {
 
 }
 
+const Log3 = (target: any, name: string | Symbol, descriptor: PropertyDescriptor) => {
+  console.log('Method decorator!')
+  console.log(target)
+  console.log(name)
+  console.log(descriptor)
+}
+
+const Log4 = (target: any, name: string | Symbol, position: number) => {
+  console.log('Parameter decorator!')
+  console.log(target)
+  console.log(name)
+  console.log(position)
+}
+
 class Product {
   @Log
   title: string
@@ -63,7 +77,8 @@ class Product {
     this._price = p
   }
 
-  getPriceWithTax(tax: number) {
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
     return this._price * (1 + tax)
   }
 }
