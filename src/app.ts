@@ -124,3 +124,56 @@ const p = new Printer()
 
 const button = document.querySelector('button')!
 button.addEventListener('click', p.showMessage)
+
+const Required = (target: any, propName: string) => {
+  console.log('Required decorator')
+  console.log(target)
+  console.log(propName)
+}
+
+const PositveNumber = (target: any, propName: string) => {
+  console.log('PositiveNumber decorator')
+  console.log(target)
+  console.log(propName)
+}
+
+const validate = (obj: any) => {
+  const objProp = Object.getOwnPropertyNames(obj)
+  console.log(objProp)
+  for (const prop of objProp) {
+    console.log(prop)
+  }
+}
+
+class Course {
+  @Required
+  title: string
+  @PositveNumber
+  price: number
+
+  constructor(t: string, p: number) {
+    this.title = t
+    this.price = p
+  }
+
+  getPriceWithTax(tax: number) {
+    return this.price * (1 + tax)
+  }
+}
+
+const courseForm = document.querySelector('form')!
+courseForm.addEventListener('submit', event => {
+  event.preventDefault()
+  const titleEl = document.getElementById('title') as HTMLInputElement
+  const priceEl = document.getElementById('price') as HTMLInputElement
+
+  const title = titleEl.value
+  const price = +priceEl.value
+
+  const createdCourse = new Course(title, price)
+  if (!validate(createdCourse)) {
+    alert('Invalid input, please try again!')
+    return
+  }
+  console.log(createdCourse)
+})
