@@ -125,24 +125,47 @@ const p = new Printer()
 const button = document.querySelector('button')!
 button.addEventListener('click', p.showMessage)
 
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProp: string]: string[]
+  }
+}
+
+const registeredValidators: ValidatorConfig = {}
+
 const Required = (target: any, propName: string) => {
-  console.log('Required decorator')
-  console.log(target)
-  console.log(propName)
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: ['required']
+  }
 }
 
 const PositveNumber = (target: any, propName: string) => {
-  console.log('PositiveNumber decorator')
-  console.log(target)
-  console.log(propName)
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: ['positive']
+  }
 }
 
 const validate = (obj: any) => {
-  const objProp = Object.getOwnPropertyNames(obj)
-  console.log(objProp)
-  for (const prop of objProp) {
-    console.log(prop)
+  const objValidatorConfig = registeredValidators[obj.constructor.name]
+  if (!objValidatorConfig) {
+    return true
   }
+  let isValid = true
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop]
+          break
+        case 'positive':
+          isValid = isValid && obj[prop] > 0
+          break
+      }
+    }
+  }
+  return isValid
 }
 
 class Course {
